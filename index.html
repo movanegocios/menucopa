@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Cardápio Copa DANO'S BURGER — escolha seu lanche, monte o pedido e peça pelo WhatsApp, iFood ou aiqfome." />
+  <title>Cardápio Copa | DANO'S BURGER</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+  <!-- =====================================================
+    META PIXEL / GOOGLE TAG MANAGER
+    Você pode usar os campos CONFIG.metaPixelId e CONFIG.gtmId.
+    O próprio script abaixo tenta carregar quando preenchidos.
+  ====================================================== -->
+
+  <style>
+    /* ==========================================================================
+       CARDÁPIO COPA — DANO'S BURGER
+       Estilo visual integrado ao site Copa: azul profundo, verde, amarelo, vidro,
+       cards premium, WhatsApp, iFood, aiqfome, n8n e Apps Script preservados.
+       ========================================================================== */
+
+    :root {
+      --bg: #030b1a;
+      --bg-2: #071428;
+      --bg-3: #0a1830;
+
+      --blue: #003399;
+      --blue-mid: #0044cc;
+      --blue-light: #1a6bff;
+
+      --yellow: #ffd700;
+      --yellow-2: #ffbf00;
+      --green: #009c3b;
+      --green-light: #00b344;
+
+      --ifood: #ea1d2c;
+      --aiqfome: #7b2cff;
+      --whatsapp: #25d366;
+
+      --white: #ffffff;
+      --text: #e8eaf2;
+      --text-dim: #98a4c4;
+
+      --glass: rgba(7, 20, 40, 0.74);
+      --glass-2: rgba(7, 20, 40, 0.90);
+      --border: rgba(255, 215, 0, 0.18);
+      --border-strong: rgba(255, 215, 0, 0.38);
+      --soft-border: rgba(255,255,255,0.10);
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 34px;
+
+      --shadow-deep: 0 22px 70px rgba(0,0,0,0.55);
+      --shadow-yellow: 0 0 34px rgba(255,215,0,0.20);
+      --shadow-green: 0 12px 34px rgba(0,156,59,0.30);
+      --transition: all .35s cubic-bezier(.4,0,.2,1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Barlow', sans-serif;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255, 215, 0, 0.10), transparent 30%),
+        radial-gradient(circle at 84% 12%, rgba(0, 156, 59, 0.15), transparent 34%),
+        linear-gradient(180deg, var(--bg), #020712 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .20;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(circle at 50% 15%, #000 0%, transparent 78%);
+    }
+
+    img, video, iframe {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .escondido { display: none !important; }
+
+    .oculto-transicao {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-kicker,
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,215,0,.34);
+      background: rgba(255,215,0,.10);
+      color: var(--yellow);
+      font-size: .76rem;
+      line-height: 1;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 900;
+      backdrop-filter: blur(10px);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      line-height: 1.05;
+      letter-spacing: .045em;
+    }
+
+    /* ==========================================================================
+       BOTÕES E CANAIS
+       ========================================================================== */
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-voltar,
+    .btn-final,
+    .channel-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: .96rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      color: #fff;
+      box-shadow: var(--shadow-green);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 16px 46px rgba(0,156,59,.45);
+    }
+
+    .btn-secondary,
+    .btn-voltar {
+      background: rgba(255,255,255,.04);
+      color: var(--yellow);
+      border: 1px solid rgba(255,215,0,.42);
+      backdrop-filter: blur(12px);
+    }
+
+    .btn-secondary:hover,
+    .btn-voltar:hover {
+      background: rgba(255,215,0,.13);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-yellow);
+    }
+
+    .channel-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .channel-btn {
+      min-height: 48px;
+      padding: 12px 18px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(0,0,0,.20);
+    }
+
+    .channel-logo {
+      min-width: 78px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      color: #fff;
+      font-size: .76rem;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      line-height: 1;
+      padding: 0 9px;
+    }
+
+    .logo-ifood {
+      background: var(--ifood);
+      font-size: .82rem;
+      letter-spacing: -.05em;
+    }
+
+    .logo-aiqfome {
+      background: var(--aiqfome);
+      font-size: .80rem;
+      text-transform: lowercase;
+      letter-spacing: -.04em;
+    }
+
+    .logo-whatsapp {
+      background: var(--whatsapp);
+      color: #061022;
+      font-size: .72rem;
+      letter-spacing: 0;
+    }
+
+    .channel-btn.ifood:hover {
+      border-color: rgba(234,29,44,.72);
+      box-shadow: 0 16px 44px rgba(234,29,44,.30);
+      transform: translateY(-2px);
+    }
+
+    .channel-btn.aiqfome:hover {
+      border-color: rgba(123,44,255,.72);
+      box-shadow: 0 16px 44px rgba(123,44,255,.30);
+      transform: translateY(-2px);
+    }
+
+    .channel-btn.whatsapp:hover {
+      border-color: rgba(37,211,102,.72);
+      box-shadow: 0 16px 44px rgba(37,211,102,.25);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       TELA DE BOAS-VINDAS
+       ========================================================================== */
+
+    #welcome-screen {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      opacity: 1;
+      visibility: visible;
+      z-index: 1000;
+    }
+
+    .welcome-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 72vh;
+      padding: 38px 20px 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(3,11,26,.88), rgba(0,51,153,.48), rgba(3,11,26,.94)),
+        radial-gradient(circle at 50% 0%, rgba(255,215,0,.24), transparent 34%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .welcome-hero::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      background: conic-gradient(from 90deg, transparent, rgba(255,215,0,.11), transparent, rgba(0,156,59,.12), transparent);
+      animation: copa-glow-spin 13s linear infinite;
+      opacity: .82;
+    }
+
+    .welcome-hero::after {
+      content: "⚽";
+      position: absolute;
+      right: clamp(16px, 6vw, 90px);
+      bottom: -44px;
+      font-size: clamp(8rem, 18vw, 16rem);
+      opacity: .065;
+      transform: rotate(-13deg);
+      pointer-events: none;
+    }
+
+    @keyframes copa-glow-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .welcome-container {
+      position: relative;
+      z-index: 2;
+      width: min(1200px, 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-area {
+      width: min(250px, 72vw);
+      height: 142px;
+      margin-bottom: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 30px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,215,0,.18);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-deep);
+      overflow: hidden;
+    }
+
+    .logo-area img {
+      max-width: 84%;
+      max-height: 84%;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.42));
+    }
+
+    .welcome-text {
+      max-width: 870px;
+      margin: 0 auto;
+    }
+
+    .welcome-text h1 {
+      color: var(--white);
+      font-size: clamp(2.8rem, 9vw, 6.6rem);
+      text-shadow: 0 10px 34px rgba(0,0,0,.48);
+      margin-bottom: 12px;
+    }
+
+    .welcome-text h1 em {
+      color: var(--yellow);
+      font-style: normal;
+    }
+
+    .welcome-text p {
+      color: rgba(232,234,242,.82);
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      line-height: 1.65;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .welcome-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      width: min(820px, 100%);
+      margin: 28px auto 0;
+    }
+
+    .welcome-highlight {
+      min-height: 78px;
+      border-radius: 20px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(7,20,40,.66);
+      backdrop-filter: blur(14px);
+    }
+
+    .welcome-highlight strong {
+      display: block;
+      color: var(--yellow);
+      font-weight: 950;
+      margin-bottom: 4px;
+      font-size: .95rem;
+    }
+
+    .welcome-highlight span {
+      display: block;
+      color: var(--text-dim);
+      font-size: .83rem;
+      line-height: 1.35;
+    }
+
+    .categories-section {
+      position: relative;
+      z-index: 3;
+      padding: 46px 20px 70px;
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255,215,0,.08), transparent 30%),
+        linear-gradient(180deg, rgba(3,11,26,.95), rgba(3,11,26,1));
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 32px;
+    }
+
+    .section-heading .section-kicker {
+      margin: 0 auto 12px;
+    }
+
+    .section-heading h2 {
+      color: var(--white);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      color: rgba(232,234,242,.74);
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+
+    #welcome-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 20px;
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .category-navigation-card {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 30% 0%, rgba(255,215,0,.16), transparent 32%),
+        linear-gradient(180deg, rgba(7,20,40,.88), rgba(2,8,18,.96));
+      box-shadow: var(--shadow-deep);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      isolation: isolate;
+    }
+
+    .category-navigation-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.86), transparent 52%),
+        linear-gradient(120deg, rgba(0,51,153,.22), rgba(0,156,59,.20));
+      z-index: 2;
+    }
+
+    .category-navigation-card::before {
+      content: "⚽";
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 3;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,215,0,.94);
+      color: #061022;
+      font-size: 1.25rem;
+      box-shadow: 0 12px 28px rgba(0,0,0,.38);
+      transition: var(--transition);
+    }
+
+    .category-navigation-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--border-strong);
+      box-shadow: 0 28px 80px rgba(0,0,0,.65), var(--shadow-yellow);
+    }
+
+    .category-navigation-card:hover::before {
+      transform: rotate(16deg) scale(1.06);
+    }
+
+    .category-navigation-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.68) saturate(1.06);
+      transition: var(--transition);
+    }
+
+    .category-navigation-card:hover img {
+      transform: scale(1.07);
+      filter: brightness(.82) saturate(1.16);
+    }
+
+    .category-navigation-card h3 {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      z-index: 4;
+      color: #fff;
+      font-size: clamp(1.55rem, 4vw, 2.15rem);
+      text-shadow: 0 4px 14px rgba(0,0,0,.74);
+    }
+
+    .category-navigation-card small {
+      position: absolute;
+      left: 20px;
+      bottom: 58px;
+      z-index: 4;
+      display: inline-flex;
+      color: var(--yellow);
+      font-weight: 900;
+      font-size: .74rem;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================================
+       ÁREA PRINCIPAL DO CARDÁPIO
+       ========================================================================== */
+
+    #cardapio-main-area {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transition: var(--transition);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255,215,0,.08), transparent 30%),
+        radial-gradient(circle at 88% 4%, rgba(0,156,59,.12), transparent 34%),
+        linear-gradient(180deg, var(--bg), #020712);
+    }
+
+    #cardapio-main-area.visivel { opacity: 1; }
+
+    .menu-header {
+      position: relative;
+      overflow: hidden;
+      padding: 44px 20px 34px;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(3,11,26,.90), rgba(0,51,153,.45), rgba(3,11,26,.95)),
+        radial-gradient(circle at 50% 0%, rgba(255,215,0,.16), transparent 34%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-header::after {
+      content: "🇧🇷";
+      position: absolute;
+      right: 5%;
+      bottom: -34px;
+      font-size: 9rem;
+      opacity: .06;
+      transform: rotate(-12deg);
+    }
+
+    .menu-header h1 {
+      color: var(--white);
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      margin-bottom: 8px;
+      text-shadow: 0 8px 30px rgba(0,0,0,.42);
+    }
+
+    .menu-header p {
+      color: rgba(232,234,242,.80);
+      font-size: clamp(.96rem, 2vw, 1.15rem);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .top-actions {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 22px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .top-actions .channel-strip {
+      margin-top: 0;
+      justify-content: flex-end;
+    }
+
+    .menu {
+      flex: 1;
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 22px 0 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .categoria-titulo {
+      position: relative;
+      color: var(--yellow);
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      margin-top: 8px;
+      padding: 18px 0 12px;
+      border-bottom: 1px solid rgba(255,215,0,.18);
+    }
+
+    .categoria-titulo::after {
+      content: "Cardápio da torcida";
+      display: inline-flex;
+      margin-left: 12px;
+      vertical-align: middle;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,156,59,.13);
+      border: 1px solid rgba(0,179,68,.26);
+      color: #7dffb0;
+      font-family: 'Barlow', sans-serif;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pizza-row {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 150px 1fr 270px;
+      align-items: center;
+      gap: 22px;
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,215,0,.10), transparent 30%),
+        linear-gradient(180deg, rgba(7,20,40,.86), rgba(2,8,18,.96));
+      box-shadow: 0 18px 54px rgba(0,0,0,.43);
+      transition: var(--transition);
+    }
+
+    .pizza-row::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: linear-gradient(110deg, transparent, rgba(255,255,255,.10), transparent);
+      transform: translateX(-120%);
+      transition: opacity .25s;
+      pointer-events: none;
+    }
+
+    .pizza-row:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,215,0,.34);
+      box-shadow: 0 28px 82px rgba(0,0,0,.58), var(--shadow-yellow);
+    }
+
+    .pizza-row:hover::before {
+      opacity: 1;
+      animation: item-shine 1.2s ease forwards;
+    }
+
+    @keyframes item-shine {
+      to { transform: translateX(120%); }
+    }
+
+    .pizza-img-box {
+      width: 100%;
+      height: 124px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,215,0,.22);
+      background: #000;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    .pizza-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .pizza-row:hover .pizza-img-box img {
+      transform: scale(1.07);
+      filter: saturate(1.12);
+    }
+
+    .pizza-title {
+      min-width: 0;
+      padding-left: 2px;
+    }
+
+    .pizza-title h2 {
+      color: var(--white);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      margin-bottom: 8px;
+    }
+
+    .pizza-title p {
+      color: var(--text-dim);
+      font-size: .96rem;
+      line-height: 1.48;
+      max-width: 650px;
+    }
+
+    .pizza-price {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--yellow);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: .04em;
+      line-height: 1;
+    }
+
+    .pizza-price::before {
+      content: "A partir de";
+      font-family: 'Barlow', sans-serif;
+      font-size: .72rem;
+      color: var(--text-dim);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+    }
+
+    .item-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .btn-pedir {
+      min-height: 82px;
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: rgba(0,156,59,.10);
+      color: #fff;
+      border: 1px solid rgba(0,179,68,.34);
+      cursor: pointer;
+      text-align: center;
+      font-weight: 950;
+      text-transform: uppercase;
+      font-size: .84rem;
+      letter-spacing: .08em;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      line-height: 1.18;
+    }
+
+    .btn-pedir svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--yellow);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .btn-pedir:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      border-color: rgba(0,179,68,.86);
+      box-shadow: 0 14px 34px rgba(0,156,59,.34);
+    }
+
+    .btn-pedir:hover svg { fill: #fff; }
+
+    .mini-channel-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .mini-channel {
+      min-height: 38px;
+      border-radius: 12px;
+      font-weight: 950;
+      font-size: .76rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .mini-channel.ifood { background: rgba(234,29,44,.16); }
+    .mini-channel.aiqfome { background: rgba(123,44,255,.16); }
+
+    .mini-channel:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+    }
+
+    .mini-channel.ifood:hover { background: var(--ifood); }
+    .mini-channel.aiqfome:hover { background: var(--aiqfome); }
+
+    /* ==========================================================================
+       MODAL DE PEDIDO
+       ========================================================================== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+      opacity: 0;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: opacity .30s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-box {
+      position: relative;
+      overflow-y: auto;
+      width: min(96vw, 940px);
+      max-height: 92vh;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-strong);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,215,0,.17), transparent 30%),
+        linear-gradient(180deg, rgba(7,20,40,.98), rgba(2,8,18,.99));
+      box-shadow: 0 34px 130px rgba(0,0,0,.82);
+      transform: translateY(18px);
+      transition: transform .30s ease;
+    }
+
+    .modal.active .modal-box { transform: translateY(0); }
+
+    .modal-box::-webkit-scrollbar { width: 6px; }
+    .modal-box::-webkit-scrollbar-track { background: #071428; border-radius: 999px; }
+    .modal-box::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 999px; }
+
+    .close {
+      position: sticky;
+      top: 14px;
+      float: right;
+      margin: 14px 14px -52px auto;
+      z-index: 10;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-size: 1.7rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close:hover {
+      background: var(--ifood);
+      transform: rotate(90deg) scale(1.04);
+    }
+
+    .modal-content {
+      display: grid;
+      grid-template-columns: minmax(280px, .92fr) minmax(0, 1.08fr);
+      min-height: 600px;
+    }
+
+    .modal-left {
+      position: relative;
+      min-height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .modal-left::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 48%);
+      pointer-events: none;
+    }
+
+    .modal-left img {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-product-badge {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 2;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(3,11,26,.78);
+      border: 1px solid rgba(255,215,0,.28);
+      color: var(--yellow);
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .modal-right {
+      padding: 38px 30px 30px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .modal-right h2 {
+      color: var(--white);
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 10px;
+    }
+
+    .modal-right p {
+      color: var(--text-dim);
+      font-size: .98rem;
+      line-height: 1.56;
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.055);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+      -webkit-appearance: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(255,215,0,.52);
+      box-shadow: 0 0 0 4px rgba(255,215,0,.12);
+      background: rgba(255,255,255,.075);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(232,234,242,.42);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .upsell-box {
+      margin: 2px 0 18px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,215,0,.25);
+      background: rgba(255,215,0,.07);
+    }
+
+    .upsell-box strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--yellow);
+      font-size: .85rem;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .upsell-option {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: .94rem;
+      font-weight: 700;
+    }
+
+    .upsell-option input[type="number"] {
+      width: 70px;
+      min-height: 40px;
+      padding: 8px;
+      text-align: center;
+      color: var(--yellow);
+      font-weight: 900;
+    }
+
+    .total {
+      margin: 12px 0 18px;
+      color: var(--yellow);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.15rem;
+      line-height: 1;
+      letter-spacing: .04em;
+    }
+
+    .btn-final {
+      width: 100%;
+      border-radius: 16px;
+      margin-top: auto;
+      color: #fff;
+      background: linear-gradient(135deg, var(--whatsapp), #148f45);
+      box-shadow: 0 12px 30px rgba(37,211,102,.24);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .btn-final:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 18px 44px rgba(37,211,102,.35);
+    }
+
+    .modal-channel-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .modal-channel-actions .channel-btn {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 12px;
+      border-radius: 14px;
+    }
+
+    /* ==========================================================================
+       RODAPÉ
+       ========================================================================== */
+
+    .site-footer {
+      width: 100%;
+      flex-shrink: 0;
+      margin-top: auto;
+      padding: 60px 20px 22px;
+      border-top: 1px solid rgba(255,215,0,.12);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,215,0,.08), transparent 30%),
+        linear-gradient(180deg, rgba(3,11,26,.96), #010812);
+    }
+
+    .footer-content {
+      width: min(1200px, 100%);
+      margin: 0 auto 38px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 38px;
+      text-align: left;
+    }
+
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-logo {
+      max-width: 156px;
+      height: auto;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,.42));
+    }
+
+    .footer-section p {
+      color: var(--text-dim);
+      font-size: .92rem;
+      margin-bottom: 9px;
+      line-height: 1.55;
+    }
+
+    .footer-section h3 {
+      color: var(--yellow);
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .footer-section h3::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 42px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--yellow);
+    }
+
+    .social-links,
+    .footer-channel-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a,
+    .footer-channel-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: var(--text-dim);
+      font-size: .88rem;
+      font-weight: 800;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover,
+    .footer-channel-links a:hover {
+      color: var(--yellow);
+      border-color: rgba(255,215,0,.34);
+      background: rgba(255,215,0,.10);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .footer-bottom p {
+      color: rgba(232,234,242,.44);
+      font-size: .82rem;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       RESPONSIVIDADE
+       ========================================================================== */
+
+    @media (max-width: 1024px) {
+      .pizza-row {
+        grid-template-columns: 130px 1fr 230px;
+        gap: 16px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-section:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .welcome-highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: center;
+      }
+
+      .top-actions .channel-strip {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .pizza-row {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .pizza-img-box {
+        height: 220px;
+      }
+
+      .pizza-title p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .item-actions {
+        width: 100%;
+      }
+
+      .btn-pedir {
+        min-height: 56px;
+      }
+
+      .modal {
+        padding: 12px;
+      }
+
+      .modal-content {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+
+      .modal-left img {
+        height: 230px;
+        min-height: auto;
+      }
+
+      .modal-left {
+        min-height: auto;
+      }
+
+      .modal-right {
+        padding: 28px 20px 22px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-section {
+        align-items: center;
+      }
+
+      .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .social-links,
+      .footer-channel-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container,
+      .menu,
+      .top-actions {
+        width: calc(100% - 28px);
+      }
+
+      .welcome-hero {
+        padding: 28px 14px 54px;
+        min-height: 68vh;
+      }
+
+      .logo-area {
+        height: 118px;
+        border-radius: 24px;
+      }
+
+      .categories-section {
+        padding: 38px 14px 52px;
+      }
+
+      #welcome-categories {
+        grid-template-columns: 1fr;
+      }
+
+      .category-navigation-card {
+        height: 178px;
+      }
+
+      .channel-strip,
+      .modal-channel-actions {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+      }
+
+      .channel-btn,
+      .btn-primary,
+      .btn-secondary,
+      .btn-voltar,
+      .btn-final {
+        width: 100%;
+        white-space: normal;
+      }
+
+      .pizza-img-box {
+        height: 190px;
+      }
+
+      .mini-channel-row {
+        grid-template-columns: 1fr;
+      }
+
+      .categoria-titulo::after {
+        display: flex;
+        width: fit-content;
+        margin: 8px auto 0;
+      }
+
+      .upsell-option {
+        grid-template-columns: 60px 1fr;
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ==========================================================================
+       REFINAMENTO PROFISSIONAL — CABEÇALHO, LOGO, TEXTOS E BOTÕES
+       Atualização segura: preserva HTML, JS, integrações e posições dos botões.
+       ========================================================================== */
+
+    .welcome-hero {
+      min-height: 76vh;
+      padding: clamp(30px, 5vw, 58px) 20px clamp(56px, 8vw, 92px);
+      background:
+        linear-gradient(135deg, rgba(2, 9, 22, .94) 0%, rgba(0, 51, 153, .50) 48%, rgba(2, 9, 22, .96) 100%),
+        radial-gradient(circle at 50% 0%, rgba(255, 215, 0, .22), transparent 34%),
+        radial-gradient(circle at 18% 18%, rgba(0, 156, 59, .18), transparent 30%);
+    }
+
+    .welcome-container {
+      max-width: 1120px;
+    }
+
+    .welcome-container::before {
+      content: "DANO’S BURGER • CARDÁPIO COPA";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      margin-bottom: 18px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.90);
+      background: rgba(3, 11, 26, .58);
+      border: 1px solid rgba(255, 215, 0, .22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 14px 38px rgba(0,0,0,.24);
+      backdrop-filter: blur(16px);
+      font-size: .74rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .logo-area {
+      width: clamp(132px, 22vw, 190px) !important;
+      height: clamp(96px, 16vw, 132px) !important;
+      margin-bottom: 20px !important;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 215, 0, .13), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+      border: 1px solid rgba(255, 215, 0, .28);
+      box-shadow:
+        0 22px 66px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 0 28px rgba(255,215,0,.10);
+    }
+
+    .logo-area img {
+      max-width: 78%;
+      max-height: 78%;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.48));
+    }
+
+    .welcome-text .section-kicker,
+    .menu-header .section-kicker,
+    .section-heading .section-kicker {
+      min-height: 34px;
+      padding: 8px 15px;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .welcome-text h1 {
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: clamp(3rem, 8.2vw, 6.15rem) !important;
+      letter-spacing: .035em;
+      line-height: .96;
+    }
+
+    .welcome-text p {
+      max-width: 760px !important;
+      color: rgba(232,234,242,.84) !important;
+      font-size: clamp(1rem, 2.1vw, 1.18rem) !important;
+      line-height: 1.58 !important;
+    }
+
+    .welcome-highlights {
+      max-width: 860px;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .welcome-highlight {
+      min-height: 92px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255, 215, 0, .10), transparent 34%),
+        rgba(7,20,40,.70);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 14px 38px rgba(0,0,0,.20);
+    }
+
+    .welcome-highlight strong {
+      color: var(--white);
+      font-size: 1rem;
+      letter-spacing: .01em;
+    }
+
+    .welcome-highlight span {
+      color: rgba(232,234,242,.70);
+      font-size: .86rem;
+      line-height: 1.38;
+    }
+
+    .channel-strip {
+      gap: 10px;
+      align-items: center;
+    }
+
+    .welcome-hero .channel-strip,
+    .top-actions .channel-strip,
+    .modal-channel-actions {
+      padding: 10px;
+      border-radius: 999px;
+      background: rgba(3, 11, 26, .44);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 16px 44px rgba(0,0,0,.22);
+      backdrop-filter: blur(14px);
+    }
+
+    .channel-btn {
+      position: relative;
+      min-width: 186px;
+      min-height: 54px;
+      justify-content: flex-start;
+      padding: 10px 16px 10px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.12);
+      overflow: hidden;
+      isolation: isolate;
+      font-size: .92rem;
+      line-height: 1.1;
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+    }
+
+    .channel-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .3s ease;
+      background: linear-gradient(135deg, rgba(255,255,255,.10), transparent 58%);
+    }
+
+    .channel-btn:hover::before { opacity: 1; }
+
+    .channel-logo {
+      min-width: 86px;
+      height: 34px;
+      border-radius: 999px;
+      font-size: .78rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 8px 18px rgba(0,0,0,.18);
+    }
+
+    .logo-ifood {
+      background: linear-gradient(135deg, #ff3444, var(--ifood));
+      font-size: .86rem;
+    }
+
+    .logo-aiqfome {
+      background: linear-gradient(135deg, #9b6cff, var(--aiqfome));
+      font-size: .82rem;
+    }
+
+    .logo-whatsapp {
+      background: linear-gradient(135deg, #5dff9c, var(--whatsapp));
+      color: #04130b;
+      font-size: .74rem;
+    }
+
+    .channel-btn.ifood,
+    .channel-btn.aiqfome,
+    .channel-btn.whatsapp {
+      color: rgba(255,255,255,.96);
+    }
+
+    .channel-btn.ifood:hover,
+    .channel-btn.aiqfome:hover,
+    .channel-btn.whatsapp:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    .menu-header {
+      min-height: 250px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      padding: clamp(42px, 6vw, 72px) 20px clamp(34px, 5vw, 52px) !important;
+    }
+
+    .menu-header h1 {
+      font-size: clamp(2.6rem, 6.8vw, 4.8rem) !important;
+      letter-spacing: .035em;
+      margin-top: 12px;
+    }
+
+    .menu-header p {
+      max-width: 760px !important;
+      color: rgba(232,234,242,.82) !important;
+      font-size: clamp(1rem, 2vw, 1.16rem) !important;
+      line-height: 1.58;
+    }
+
+    .top-actions {
+      align-items: center;
+      padding-top: 24px;
+      padding-bottom: 4px;
+    }
+
+    .btn-voltar {
+      min-height: 54px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: rgba(3, 11, 26, .58);
+      border-color: rgba(255, 215, 0, .36);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .section-heading h2,
+    .categoria-titulo {
+      letter-spacing: .035em;
+    }
+
+    .section-heading p {
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: clamp(.98rem, 2vw, 1.08rem) !important;
+      line-height: 1.62 !important;
+    }
+
+    .pizza-title h2 {
+      font-size: clamp(1.55rem, 2.4vw, 2rem) !important;
+      line-height: 1.06;
+    }
+
+    .pizza-title p {
+      max-width: 650px;
+      font-size: .98rem !important;
+      line-height: 1.48 !important;
+    }
+
+    .btn-pedir {
+      min-height: 116px;
+      border-radius: 18px;
+      font-size: .86rem;
+      letter-spacing: .06em;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 215, 0, .12), transparent 45%),
+        rgba(255,255,255,.035);
+    }
+
+    .mini-channel {
+      min-height: 40px;
+      border-radius: 999px;
+      font-size: .78rem;
+      letter-spacing: .04em;
+      text-transform: none;
+    }
+
+    @media (max-width: 768px) {
+      .welcome-container::before {
+        font-size: .64rem;
+        letter-spacing: .12em;
+        margin-bottom: 14px;
+      }
+
+      .welcome-text h1 {
+        font-size: clamp(2.55rem, 13vw, 4.1rem) !important;
+      }
+
+      .welcome-highlights {
+        grid-template-columns: 1fr;
+        width: min(430px, 100%);
+      }
+
+      .welcome-hero .channel-strip,
+      .top-actions .channel-strip,
+      .modal-channel-actions {
+        width: 100%;
+        border-radius: 24px;
+        padding: 10px;
+      }
+
+      .channel-btn {
+        width: 100%;
+        min-width: 0;
+        justify-content: flex-start;
+      }
+
+      .top-actions {
+        width: min(680px, calc(100% - 28px));
+      }
+    }
+
+    @media (max-width: 414px) {
+      .logo-area {
+        width: 132px !important;
+        height: 94px !important;
+      }
+
+      .welcome-text p,
+      .menu-header p {
+        font-size: .96rem !important;
+      }
+
+      .channel-logo {
+        min-width: 82px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div id="welcome-screen">
+  <section class="welcome-hero">
+    <div class="welcome-container">
+      <div class="logo-area">
+        <img src="logo.png" alt="DANO'S BURGER">
+      </div>
+
+      <div class="welcome-text">
+        <span class="section-kicker">🇧🇷 Cardápio da Torcida</span>
+        <h1>O pedido da <em>torcida</em> começa aqui</h1>
+        <p>
+          Escolha sua categoria, monte seu lanche com adicionais e finalize pelo WhatsApp ou pelos canais oficiais iFood e aiqfome.
+        </p>
+      </div>
+
+      <div class="welcome-highlights" aria-label="Destaques do cardápio">
+        <div class="welcome-highlight">
+          <strong>Pedido rápido</strong>
+          <span>Monte quantidade, adicionais e observações antes de chamar no WhatsApp.</span>
+        </div>
+        <div class="welcome-highlight">
+          <strong>Canais oficiais</strong>
+          <span>Botões para WhatsApp, iFood e aiqfome em pontos estratégicos.</span>
+        </div>
+        <div class="welcome-highlight">
+          <strong>Clima de Copa</strong>
+          <span>Visual moderno para combos, jogos, torcida e ações promocionais.</span>
+        </div>
+      </div>
+
+      <div class="channel-strip" id="welcome-channel-strip">
+        <!-- botões de canais injetados via JS -->
+      </div>
+    </div>
+  </section>
+
+  <section class="categories-section">
+    <div class="section-heading">
+      <span class="section-kicker">🔥 Escolha sua categoria</span>
+      <h2>Escolha uma categoria</h2>
+      <p>
+        Veja as opções disponíveis, escolha seu favorito e continue no canal que preferir.
+      </p>
+    </div>
+
+    <div id="welcome-categories"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <img src="logo.png" alt="DANO'S BURGER Logo" class="footer-logo">
+        <p>Sabor de jogo grande, atendimento rápido e combos para curtir cada lance.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Atendimento</h3>
+        <p>📍 Dr. Prudente de Morais, 537 – Canasvieiras</p>
+        <p>📱 WhatsApp: (48) 99605-3746</p>
+        <p>🕒 Seg a Sáb, das 18h às 23h</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Canais oficiais</h3>
+        <div class="footer-channel-links" id="footer-channels-welcome"></div>
+        <div class="social-links" style="margin-top:12px;">
+          <a href="https://www.instagram.com/danos.burger/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Dano’s Burger. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</div>
+
+<div id="cardapio-main-area" class="escondido">
+  <header class="menu-header">
+    <span class="section-kicker">⚽ Cardápio Copa</span>
+    <h1 id="menu-title">Cardápio da Torcida</h1>
+    <p id="menu-subtitle">Escolha seu lanche, adicione acompanhamentos e peça pelo canal que preferir.</p>
+  </header>
+
+  <div class="top-actions">
+    <button class="btn-voltar" onclick="voltarParaInicio()">
+      ← Voltar para Categorias
+    </button>
+
+    <div class="channel-strip" id="menu-channel-strip">
+      <!-- botões de canais injetados via JS -->
+    </div>
+  </div>
+
+  <main class="menu" id="menu"></main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <img src="logo.png" alt="DANO'S BURGER Logo" class="footer-logo">
+        <p>Sabor de jogo grande, atendimento rápido e combos para curtir cada lance.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Atendimento</h3>
+        <p>📍 Av. Principal, 123 - Centro</p>
+        <p>📱 WhatsApp: (00) 00000-0000</p>
+        <p>🕒 Ter a Dom: 18h às 23h30</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Canais oficiais</h3>
+        <div class="footer-channel-links" id="footer-channels-menu"></div>
+        <div class="social-links" style="margin-top:12px;">
+          <a href="https://www.instagram.com/danos.burger/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Dano's Burger. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</div>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <button class="close" onclick="fecharModal()" aria-label="Fechar pedido">×</button>
+    <div class="modal-content">
+      <div class="modal-left">
+        <img id="modalImagem" src="" alt="Produto escolhido">
+        <div class="modal-product-badge">Pedido da Copa</div>
+      </div>
+      <div class="modal-right">
+        <span class="mini-badge">🍔 Monte seu pedido</span>
+        <h2 id="modalTitulo"></h2>
+        <p id="modalDescricao"></p>
+        <div class="total" id="modalPreco"></div>
+
+        <div class="form-group">
+          <label for="quantidade">Quantidade</label>
+          <input type="number" id="quantidade" min="1" value="1" oninput="atualizarTotal()">
+        </div>
+
+        <div class="form-group">
+          <label for="endereco">Endereço de entrega *</label>
+          <input type="text" id="endereco" placeholder="Rua, número, bairro e referência">
+        </div>
+
+        <div class="form-group">
+          <label for="observacoes">Observações</label>
+          <textarea id="observacoes" placeholder="Ex: sem cebola, pouca cebola, sem molho, ponto da carne..."></textarea>
+        </div>
+
+        <div class="upsell-box">
+          <strong>Deseja adicionar algo para a torcida?</strong>
+          <div id="upsellsArea"></div>
+        </div>
+
+        <div class="total" id="totalPedido"></div>
+
+        <button class="btn-final" onclick="finalizarPedido()">
+          Enviar pedido pelo WhatsApp
+        </button>
+
+        <div class="modal-channel-actions" id="modal-channel-actions">
+          <!-- iFood e aiqfome injetados via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* --------------------------------------------------------------------------
+     1. CONFIGURAÇÕES E DADOS GERAIS
+     -------------------------------------------------------------------------- */
+  const CONFIG = {
+    whatsapp: "5500000000000",
+
+    // Integrações preservadas
+    n8nWebhook: "https://SEU-N8N.com/webhook/pedido-pizza",
+    googleAppsScript: "https://script.google.com/macros/s/SEU_SCRIPT_ID/exec",
+
+    // Rastreamento opcional
+    metaPixelId: "",
+    gtmId: "",
+
+    // Canais externos
+    canais: {
+      whatsapp: {
+        enabled: true,
+        texto: "Pedir no WhatsApp"
+      },
+      ifood: {
+        enabled: true,
+        texto: "Pedir no iFood",
+        url: "https://www.ifood.com.br/"
+      },
+      aiqfome: {
+        enabled: true,
+        texto: "Pedir no aiqfome",
+        url: "https://www.aiqfome.com/"
+      }
+    },
+
+    textos: {
+      menuTitulo: "Cardápio Oficial da Torcida",
+      menuSubtitulo: "Escolha seu lanche, adicione acompanhamentos e finalize pelo WhatsApp, iFood ou aiqfome."
+    }
+  };
+
+  const upsellsGlobais = [
+    { id: "coca2l", nome: "Coca-Cola 2L", preco: 14 },
+    { id: "borda", nome: "Borda recheada", preco: 12 },
+    { id: "sobremesa", nome: "Pizza doce pequena", preco: 25 },
+    { id: "guarana", nome: "Guaraná 2L", preco: 12 }
+  ];
+
+  const pizzas = [
+    {
+      id: "bufala",
+      categoria: "Hamburgueres",
+      nome: "Muçarela de Búfala com Tomate",
+      descricao: "Muçarela de búfala, tomate fresco, molho artesanal e manjericão.",
+      preco: 65,
+      imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDzo3VXzmDGRDNo92_ihh3Eyx3jvyxqumHXg&s",
+      upsells: ["coca2l", "borda", "sobremesa"]
+    },
+    {
+      id: "calabresa",
+      categoria: "Hamburgueres",
+      nome: "Calabresa Especial",
+      descricao: "Calabresa fatiada, cebola, mussarela, molho da casa e orégano.",
+      preco: 55,
+      imagem: "https://www.skymsen.com/uploads/blog/como-fazer-hamburguer-recheado-passo-a-passo-para-surpreender-os-clientes.jpg",
+      upsells: ["coca2l", "guarana", "borda"]
+    },
+    {
+      id: "sensacao",
+      categoria: "Batatas Fritas",
+      nome: "Sensação Especial",
+      descricao: "Chocolate ao leite coberto com fatias de morango fresco e um toque de leite condensado.",
+      preco: 50,
+      imagem: "https://turistandosp.com.br/wp-content/uploads/2025/07/455320231_3298077653659638_9056436667415908379_n-1-585x468.jpg",
+      upsells: ["coca2l", "guarana"]
+    },
+    {
+      id: "veganissima",
+      categoria: "Vegetarianos",
+      nome: "Veganíssima Ofrélio",
+      descricao: "Mix de cogumelos, pimentões assados, brócolis, cebola roxa e queijo vegano artesanal.",
+      preco: 70,
+      imagem: "https://assets.unileversolutions.com/recipes-v2/111189.jpg",
+      upsells: ["guarana"]
+    }
+  ];
+
+  let pizzaSelecionada = null;
+
+  /* --------------------------------------------------------------------------
+     2. UTILITÁRIOS
+     -------------------------------------------------------------------------- */
+
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function escapeAttr(value) {
+    return escapeHTML(value).replace(/`/g, "&#096;");
+  }
+
+  function onlyNumbers(value) {
+    return String(value ?? "").replace(/\D/g, "");
+  }
+
+  function moeda(valor) {
+    return `R$ ${Number(valor || 0).toFixed(2).replace(".", ",")}`;
+  }
+
+  function trackEvent(eventName, payload = {}) {
+    const dados = {
+      evento: eventName,
+      origem: "cardapio-copa",
+      timestamp: new Date().toISOString(),
+      url: window.location.href,
+      ...payload
+    };
+
+    if (window.dataLayer) {
+      window.dataLayer.push({ event: eventName, ...dados });
+    }
+
+    if (window.fbq) {
+      window.fbq("trackCustom", eventName, dados);
+    }
+
+    // Envia evento leve para n8n se configurado
+    if (CONFIG.n8nWebhook && !CONFIG.n8nWebhook.includes("SEU-N8N")) {
+      fetch(CONFIG.n8nWebhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+      }).catch(() => {});
+    }
+  }
+
+  function initTracking() {
+    if (CONFIG.gtmId) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(CONFIG.gtmId)}`;
+      document.head.appendChild(s);
+    }
+
+    if (CONFIG.metaPixelId) {
+      !function(f,b,e,v,n,t,s){
+        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)
+      }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq("init", CONFIG.metaPixelId);
+      fbq("track", "PageView");
+    }
+  }
+
+  function buildWhatsAppUrl(mensagem) {
+    const numero = onlyNumbers(CONFIG.whatsapp);
+    if (!numero) return "#";
+    return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem || "")}`;
+  }
+
+  function abrirCanal(canal, contexto = {}) {
+    const config = CONFIG.canais?.[canal];
+
+    if (!config || config.enabled === false) return;
+
+    trackEvent("clique_canal_externo", {
+      canal,
+      produto: contexto.produto || "",
+      categoria: contexto.categoria || "",
+      local: contexto.local || ""
+    });
+
+    if (canal === "whatsapp") {
+      const produto = contexto.produto ? ` sobre ${contexto.produto}` : "";
+      const msg = `Olá! Vim pelo Cardápio da Copa e quero fazer um pedido${produto}.`;
+      window.open(buildWhatsAppUrl(msg), "_blank", "noopener");
+      return;
+    }
+
+    if (config.url) {
+      window.open(config.url, "_blank", "noopener");
+    }
+  }
+
+  function channelButtonHTML(canal, labelExtra = "") {
+    const config = CONFIG.canais?.[canal] || {};
+    if (config.enabled === false) return "";
+
+    if (canal === "ifood") {
+      return `
+        <button class="channel-btn ifood" type="button" onclick="abrirCanal('ifood', { local: '${labelExtra || "geral"}' })">
+          <span class="channel-logo logo-ifood">iFood</span>
+          <span>${escapeHTML(config.texto || "Pedir no iFood")}</span>
+        </button>`;
+    }
+
+    if (canal === "aiqfome") {
+      return `
+        <button class="channel-btn aiqfome" type="button" onclick="abrirCanal('aiqfome', { local: '${labelExtra || "geral"}' })">
+          <span class="channel-logo logo-aiqfome">aiqfome</span>
+          <span>${escapeHTML(config.texto || "Pedir no aiqfome")}</span>
+        </button>`;
+    }
+
+    return `
+      <button class="channel-btn whatsapp" type="button" onclick="abrirCanal('whatsapp', { local: '${labelExtra || "geral"}' })">
+        <span class="channel-logo logo-whatsapp">WhatsApp</span>
+        <span>${escapeHTML(config.texto || "Pedir no WhatsApp")}</span>
+      </button>`;
+  }
+
+  function renderChannelStrips() {
+    const html = [
+      channelButtonHTML("whatsapp", "barra_canais"),
+      channelButtonHTML("ifood", "barra_canais"),
+      channelButtonHTML("aiqfome", "barra_canais")
+    ].join("");
+
+    ["welcome-channel-strip", "menu-channel-strip", "footer-channels-welcome", "footer-channels-menu"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = html;
+    });
+
+    const modalChannels = document.getElementById("modal-channel-actions");
+    if (modalChannels) {
+      modalChannels.innerHTML = [
+        channelButtonHTML("ifood", "modal"),
+        channelButtonHTML("aiqfome", "modal")
+      ].join("");
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     3. NAVEGAÇÃO E RENDERIZAÇÃO
+     -------------------------------------------------------------------------- */
+
+  function gerarNavegacaoBemVindo() {
+    const areaCategorias = document.getElementById("welcome-categories");
+    areaCategorias.innerHTML = "";
+
+    const categoriasUnicas = [...new Set(pizzas.map(p => p.categoria || "Outras opções"))];
+
+    categoriasUnicas.forEach(cat => {
+      const primeiraPizza = pizzas.find(p => (p.categoria || "Outras opções") === cat);
+      const imagemCat = primeiraPizza ? primeiraPizza.imagem : "";
+
+      areaCategorias.innerHTML += `
+        <article class="category-navigation-card" onclick="abrirCategoria('${escapeAttr(cat)}')" tabindex="0" role="button" aria-label="Abrir categoria ${escapeAttr(cat)}">
+          <img src="${escapeAttr(imagemCat)}" alt="${escapeAttr(cat)}">
+          <small>Ver opções</small>
+          <h3>${escapeHTML(cat)}</h3>
+        </article>
+      `;
+    });
+
+    areaCategorias.querySelectorAll(".category-navigation-card").forEach(card => {
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          card.click();
+        }
+      });
+    });
+  }
+
+  function abrirCategoria(catSelecionada) {
+    renderizarMenu(catSelecionada);
+
+    const welcome = document.getElementById("welcome-screen");
+    const cardapioArea = document.getElementById("cardapio-main-area");
+
+    welcome.classList.add("oculto-transicao");
+    cardapioArea.classList.remove("escondido");
+
+    setTimeout(() => {
+      cardapioArea.classList.add("visivel");
+      document.body.style.overflowY = "auto";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 50);
+
+    setTimeout(() => {
+      welcome.classList.add("escondido");
+    }, 400);
+
+    trackEvent("categoria_aberta", { categoria: catSelecionada });
+  }
+
+  function voltarParaInicio() {
+    const welcome = document.getElementById("welcome-screen");
+    const cardapioArea = document.getElementById("cardapio-main-area");
+
+    cardapioArea.classList.remove("visivel");
+    welcome.classList.remove("escondido");
+
+    setTimeout(() => {
+      welcome.classList.remove("oculto-transicao");
+      document.body.style.overflowY = "auto";
+    }, 50);
+
+    setTimeout(() => {
+      cardapioArea.classList.add("escondido");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 400);
+
+    trackEvent("voltar_categorias");
+  }
+
+  function renderizarMenu(categoriaFiltro) {
+    const menu = document.getElementById("menu");
+    const title = document.getElementById("menu-title");
+    const subtitle = document.getElementById("menu-subtitle");
+
+    if (title) title.textContent = categoriaFiltro || CONFIG.textos.menuTitulo;
+    if (subtitle) subtitle.textContent = CONFIG.textos.menuSubtitulo;
+
+    menu.innerHTML = "";
+
+    const iconeBotaoSVG = `
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M414.4 129.6C388.5 73.1 333.1 32 256 32S123.5 73.1 97.6 129.6c-7.9 17.3-13.8 36.3-17 56.4c-2.4 15 9.4 28 24.6 28h301.7c15.2 0 26.9-13 24.6-28c-3.3-20.1-9.2-39.1-17.1-56.4zM32 256c-17.7 0-32 14.3-32 32s14.3 32 32 32h448c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zm32 96c-17.7 0-32 14.3-32 32c0 53 43 96 96 96h256c53 0 96-43 96-96c0-17.7-14.3-32-32-32H64z"/>
+      </svg>`;
+
+    menu.innerHTML += `<h2 class="categoria-titulo">${escapeHTML(categoriaFiltro)}</h2>`;
+
+    const pizzasDaCategoria = pizzas.filter(p => (p.categoria || "Outras opções") === categoriaFiltro);
+
+    pizzasDaCategoria.forEach(pizza => {
+      menu.innerHTML += `
+        <article class="pizza-row">
+          <div class="pizza-img-box">
+            <img src="${escapeAttr(pizza.imagem)}" alt="${escapeAttr(pizza.nome)}">
+          </div>
+
+          <div class="pizza-title">
+            <h2>${escapeHTML(pizza.nome)}</h2>
+            <p>${escapeHTML(pizza.descricao)}</p>
+            <div class="pizza-price">${moeda(pizza.preco)}</div>
+          </div>
+
+          <div class="item-actions">
+            <button class="btn-pedir" onclick="abrirModal('${escapeAttr(pizza.id)}')">
+              ${iconeBotaoSVG}
+              <span>Preparar<br>meu pedido</span>
+            </button>
+
+            <div class="mini-channel-row">
+              <button class="mini-channel ifood" onclick="abrirCanal('ifood', { produto: '${escapeAttr(pizza.nome)}', categoria: '${escapeAttr(pizza.categoria)}', local: 'card_produto' })">iFood</button>
+              <button class="mini-channel aiqfome" onclick="abrirCanal('aiqfome', { produto: '${escapeAttr(pizza.nome)}', categoria: '${escapeAttr(pizza.categoria)}', local: 'card_produto' })">aiqfome</button>
+            </div>
+          </div>
+        </article>
+      `;
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     4. LÓGICA DO MODAL E CARRINHO
+     -------------------------------------------------------------------------- */
+
+  function abrirModal(id) {
+    pizzaSelecionada = pizzas.find(p => p.id === id);
+    if (!pizzaSelecionada) return;
+
+    document.getElementById("modalImagem").src = pizzaSelecionada.imagem;
+    document.getElementById("modalTitulo").innerText = pizzaSelecionada.nome;
+    document.getElementById("modalDescricao").innerText = pizzaSelecionada.descricao;
+    document.getElementById("modalPreco").innerText = moeda(pizzaSelecionada.preco);
+
+    document.getElementById("quantidade").value = 1;
+    document.getElementById("endereco").value = "";
+    document.getElementById("observacoes").value = "";
+
+    const upsellsArea = document.getElementById("upsellsArea");
+    upsellsArea.innerHTML = "";
+
+    const upsellsDaPizza = upsellsGlobais.filter(item =>
+      pizzaSelecionada.upsells.includes(item.id)
+    );
+
+    upsellsDaPizza.forEach(item => {
+      upsellsArea.innerHTML += `
+        <label class="upsell-option">
+          <input type="number" id="upsell-${escapeAttr(item.id)}" min="0" value="0" oninput="atualizarTotal()">
+          <span>${escapeHTML(item.nome)} — ${moeda(item.preco)}</span>
+        </label>
+      `;
+    });
+
+    renderChannelStrips();
+    atualizarTotal();
+
+    const modal = document.getElementById("modal");
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    trackEvent("produto_aberto", {
+      produto: pizzaSelecionada.nome,
+      categoria: pizzaSelecionada.categoria,
+      preco: pizzaSelecionada.preco
+    });
+  }
+
+  function fecharModal() {
+    const modal = document.getElementById("modal");
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+
+    if (document.getElementById("welcome-screen").classList.contains("escondido")) {
+      document.body.style.overflowY = "auto";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }
+
+  function pegarUpsellsSelecionados() {
+    const upsellsSelecionados = [];
+    if (!pizzaSelecionada) return upsellsSelecionados;
+
+    const upsellsDaPizza = upsellsGlobais.filter(item => pizzaSelecionada.upsells.includes(item.id));
+
+    upsellsDaPizza.forEach(item => {
+      const inputQtd = document.getElementById(`upsell-${item.id}`);
+      if (inputQtd) {
+        const qtd = Number(inputQtd.value) || 0;
+        if (qtd > 0) {
+          upsellsSelecionados.push({ ...item, quantidade: qtd });
+        }
+      }
+    });
+
+    return upsellsSelecionados;
+  }
+
+  function calcularTotal() {
+    if (!pizzaSelecionada) return 0;
+
+    const quantidade = Number(document.getElementById("quantidade").value) || 1;
+    const totalPizza = pizzaSelecionada.preco * quantidade;
+    const upsells = pegarUpsellsSelecionados();
+    const totalUpsells = upsells.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
+
+    return totalPizza + totalUpsells;
+  }
+
+  function atualizarTotal() {
+    if (!pizzaSelecionada) return;
+    const total = calcularTotal();
+    document.getElementById("totalPedido").innerText = `Total estimado: ${moeda(total)}`;
+  }
+
+  /* --------------------------------------------------------------------------
+     5. ENVIO DE DADOS
+     -------------------------------------------------------------------------- */
+
+  async function finalizarPedido() {
+    if (!pizzaSelecionada) return;
+
+    const quantidade = Number(document.getElementById("quantidade").value);
+    const endereco = document.getElementById("endereco").value.trim();
+    const observacoes = document.getElementById("observacoes").value.trim();
+
+    if (!quantidade || quantidade < 1) {
+      alert("Informe uma quantidade válida.");
+      return;
+    }
+
+    if (!endereco) {
+      alert("Informe o endereço de entrega.");
+      return;
+    }
+
+    const upsellsSelecionados = pegarUpsellsSelecionados();
+    const total = calcularTotal();
+
+    const pedido = {
+      data: new Date().toISOString(),
+      produto: pizzaSelecionada.nome,
+      pizza: pizzaSelecionada.nome,
+      categoria: pizzaSelecionada.categoria,
+      quantidade,
+      precoPizza: pizzaSelecionada.preco,
+      upsells: upsellsSelecionados.map(item => `${item.quantidade}x ${item.nome}`),
+      endereco,
+      observacoes,
+      total,
+      canal: "whatsapp",
+      origem: "cardapio-copa"
+    };
+
+    enviarParaN8N(pedido);
+    enviarParaAppsScript(pedido);
+
+    trackEvent("pedido_preparado_whatsapp", {
+      produto: pedido.produto,
+      categoria: pedido.categoria,
+      total: pedido.total,
+      quantidade: pedido.quantidade,
+      upsells: pedido.upsells.join(", ")
+    });
+
+    const mensagem = `
+🇧🇷 *Pedido pelo Cardápio da Copa*
+
+🍔 Pedido: ${pedido.produto}
+🔢 Quantidade: ${pedido.quantidade}
+
+${pedido.upsells.length > 0 ? `➕ Adicionais: ${pedido.upsells.join(", ")}` : "➕ Sem adicionais"}
+
+📍 Endereço:
+${pedido.endereco}
+
+📝 Observações:
+${pedido.observacoes || "Nenhuma"}
+
+💰 Total estimado: ${moeda(pedido.total)}
+
+Meu nome:
+Forma de pagamento:
+    `;
+
+    window.open(buildWhatsAppUrl(mensagem), "_blank", "noopener");
+    fecharModal();
+  }
+
+  async function enviarParaN8N(pedido) {
+    try {
+      if (!CONFIG.n8nWebhook || CONFIG.n8nWebhook.includes("SEU-N8N")) return;
+
+      await fetch(CONFIG.n8nWebhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          evento: "pedido_cardapio_copa",
+          ...pedido
+        })
+      });
+    } catch (error) {
+      console.error("Erro N8N:", error);
+    }
+  }
+
+  async function enviarParaAppsScript(pedido) {
+    try {
+      if (!CONFIG.googleAppsScript || CONFIG.googleAppsScript.includes("SEU_SCRIPT_ID")) return;
+
+      await fetch(CONFIG.googleAppsScript, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          evento: "pedido_cardapio_copa",
+          ...pedido
+        })
+      });
+    } catch (error) {
+      console.error("Erro AppsScript:", error);
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     6. INICIALIZAÇÃO
+     -------------------------------------------------------------------------- */
+
+  function init() {
+    initTracking();
+
+    const menuTitle = document.getElementById("menu-title");
+    const menuSubtitle = document.getElementById("menu-subtitle");
+    if (menuTitle) menuTitle.textContent = CONFIG.textos.menuTitulo;
+    if (menuSubtitle) menuSubtitle.textContent = CONFIG.textos.menuSubtitulo;
+
+    renderChannelStrips();
+    gerarNavegacaoBemVindo();
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") fecharModal();
+    });
+
+    const modal = document.getElementById("modal");
+    if (modal) {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) fecharModal();
+      });
+    }
+
+    trackEvent("view_cardapio_copa");
+  }
+
+  init();
+</script>
+
+</body>
+</html>

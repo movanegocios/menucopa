@@ -284,6 +284,75 @@
       transform: translateY(-2px);
     }
 
+    .btn-voltar-site-copa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 0 auto 30px;
+    padding: 15px 26px;
+
+    border-radius: 999px;
+    border: 1px solid rgba(255, 215, 0, 0.65);
+
+    background:
+        linear-gradient(135deg, rgba(0, 156, 59, 0.22), rgba(0, 51, 153, 0.32)),
+        radial-gradient(circle at top left, rgba(255, 215, 0, 0.28), transparent 35%);
+
+    color: #ffd700;
+    text-decoration: none;
+
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.45),
+        0 0 22px rgba(255, 215, 0, 0.16);
+
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-voltar-site-copa::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.18),
+        transparent
+    );
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+}
+
+.btn-voltar-site-copa:hover::before {
+    transform: translateX(120%);
+}
+
+.btn-voltar-site-copa:hover {
+    transform: translateY(-2px);
+    color: #06142f;
+    background:
+        linear-gradient(135deg, #ffd700, #f5c400),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 35%);
+
+    border-color: #ffd700;
+
+    box-shadow:
+        0 20px 48px rgba(0, 0, 0, 0.55),
+        0 0 28px rgba(255, 215, 0, 0.35);
+}
+
+.btn-voltar-site-copa:active {
+    transform: translateY(0);
+}
+
     /* ==========================================================================
        TELA DE BOAS-VINDAS
        ========================================================================== */
@@ -1753,7 +1822,9 @@
         Veja as opções disponíveis, escolha seu favorito e continue no canal que preferir.
       </p>
     </div>
-
+    <a href="https://movanegocios.github.io/copa2026/" target="_blank" rel="noopener" class="btn-voltar-site-copa">
+    ← Voltar para o site
+</a>
     <div id="welcome-categories"></div>
   </section>
 
